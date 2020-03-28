@@ -1,23 +1,22 @@
 ######################################
-#   Hangman in python version beta 4 #
+#   Hangman in python version beta 5 #
 #     Made by Jose and Alex          #
 ######################################
-
-# import os for the execution of the command cls in cmd
-import os
-
-# Input of key word
-word = list(input("Please write a word: "))
-
-# clear cmd, so that the player does not know the word to guess
-os.system("cls")
-
-# Calculate the number of bars based on the numbers of letter of the word
-bar = list(len(word) * "_")
 
 
 # main function where the hangman game will be executed
 def main(failures=0, turn=0, vocal="aeiou", letter=str):
+    # import os for the execution of the command cls in cmd
+    import os
+
+    # Input of key word
+    word = list(input("Please write a word: "))
+
+    # clear cmd, so that the player does not know the word to guess
+    os.system("cls")
+
+    # Calculate the number of bars based on the numbers of letter of the word
+    bar = list(len(word) * "_")
 
     # variable hangman that it will show the failures that the player has
     hangman = ['''
@@ -98,26 +97,26 @@ def main(failures=0, turn=0, vocal="aeiou", letter=str):
         # try, to avoid crashes
         try:
             turn += 1
-            correct = False
+            check = False
             fail = True
 
             # check if the turn is odd or even
-            while not correct:
+            while not check:
                 # If the turn is odd the player will have to write a vocal
                 if turn % 2 == 0:
                     letter = input("Please write a vocal: ")
                     if letter in vocal:
-                        correct = True
-                # If the even is odd the player will have to write a consonant
+                        check = True
+                # If the turn is even the player will have to write a consonant
                 else:
                     letter = input("Please write a consonant: ")
                     if letter not in vocal:
-                        correct = True
+                        check = True
 
-            # loop to check if it failed or successful
+            # loop to check if the player failed or successful
             for i in range(0, len(word)):
+                # if true the letter will be replace the i position of the variable bar
                 if word[i] == letter:
-                    # if true the letter will be replace the i position of the bar
                     bar[i] = letter
                     fail = False
 

@@ -6,12 +6,17 @@
 
 
 # main function where the hangman game will be executed
-def main(failures=0, turn=0, vocal="AEIOU", letter=str):
+def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
     # import os for the execution of the command cls in cmd
     import os
 
+    check = False
     # Input of key word
-    word = list(input("Please write a word: ").upper())
+    while not check:
+        word = list(input("Please write a word: ").upper())
+        wordStr = ''.join(map(str, word))
+        if wordStr.isalpha():
+            check = True
 
     # clear cmd, so that the player does not know the word to guess
     os.system("cls")
@@ -19,81 +24,22 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str):
     # Calculate the number of bars based on the numbers of letter of the word
     bar = list(len(word) * "_")
 
+    inputLetters = list()
+
     # variable hangman that it will show the failures that the player has
-    hangman = ['''
-
-
-
-
-
-
-    =========''', '''
-
-          |
-          |
-          |
-          |
-          |
-    =========''', '''
-      +---+
-          |
-          |
-          |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-          |
-          |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-          |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-      |   |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-     /|   |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-     /|\  |
-          |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-     /|\  |
-     /    |
-          |
-    =========''', '''
-      +---+
-      |   |
-      O   |
-     /|\  |
-     / \  |
-          |
-    =========''']
+    hangman = [
+        ' _____    \n |        \n |        \n |        \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |        \n |        \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |        \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |   |    \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |  /|    \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |  /|\   \n |        \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |  /|\   \n |  /     \n_|_______\n',
+        ' _____    \n |   |    \n |   O    \n |  /|\   \n |  / \   \n_|_______\n'
+    ]
 
     # main loop where the player will lose or win
-    while failures != 9:
+    while failures != len(hangman) - 1:
 
         # try, to avoid crashes
         try:
@@ -110,15 +56,32 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str):
                     # If the turn is odd the player will have to write a vocal
                     if turn % 2 == 0:
                         letter = input("Please write a vocal: ").upper()
-                        if letter in vocal:
+                        if letter[0] in vocal and letter[0] not in inputLetters:
                             check = True
+                        elif not letter.isalpha() or letter[0] not in vocal:
+                            print("Only vowels are allowed!!")
+                        elif letter[0] in vocal and letter[0] in inputLetters:
+                            print("You have already entered the letter previously")
                     # If the turn is even the player will have to write a consonant
                     else:
                         letter = input("Please write a consonant: ").upper()
-                        if letter not in vocal:
+                        if letter[0] not in vocal and letter[0] not in inputLetters and letter[0].isalpha():
                             check = True
+                        elif not letter.isalpha() or letter[0] in vocal:
+                            print("Only consonants are allowed!!")
+                        elif letter[0] not in vocal and letter[0] in inputLetters:
+                            print("You have already entered the letter previously")
+                inputLetters += letter[0]
             else:
-                letter = input("Please write a letter: ").upper()
+                while not check:
+                    letter = input("Please write a letter: ").upper()
+                    if letter[0] not in inputLetters and letter[0].isalpha():
+                        check = True
+                    elif not letter.isalpha():
+                        print("Only letters are allowed!!")
+                    elif letter[0] in inputLetters:
+                        print("You have already entered the letter previously")
+                inputLetters += letter[0]
 
             # loop to check if the player failed or successful
             for i in range(0, len(word)):
@@ -133,7 +96,9 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str):
 
             # win execution
             if bar == word:
-                print("Congratulations you have won!")
+                os.system("cls")
+                print("The word is: " + (''.join(map(str, word))).capitalize())
+                print("Congratulations, you Win!")
                 break
 
             # print the hangman variable
@@ -141,6 +106,11 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str):
 
         except ValueError:
             print("Oops! Try it again...")
+    else:
+        os.system("cls")
+        print(hangman[failures])
+        print("The word was: " + (''.join(map(str, word))).capitalize())
+        print("GAME OVER")
 
 
 # Call the function main

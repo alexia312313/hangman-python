@@ -1,16 +1,17 @@
-######################################
-#   Hangman in python version beta 5 #
-#     Made by Jose and Alex          #
-######################################
+##################################
+#       Hangman in python        #
+#     Made by Jose and Alex      #
+#        version: beta 6         #
+##################################
 
 
 # main function where the hangman game will be executed
-def main(failures=0, turn=0, vocal="aeiou", letter=str):
+def main(failures=0, turn=0, vocal="AEIOU", letter=str):
     # import os for the execution of the command cls in cmd
     import os
 
     # Input of key word
-    word = list(input("Please write a word: "))
+    word = list(input("Please write a word: ").upper())
 
     # clear cmd, so that the player does not know the word to guess
     os.system("cls")
@@ -100,18 +101,24 @@ def main(failures=0, turn=0, vocal="aeiou", letter=str):
             check = False
             fail = True
 
+            # print the variable bar as string
+            print(' '.join(map(str, bar)))
+
             # check if the turn is odd or even
-            while not check:
-                # If the turn is odd the player will have to write a vocal
-                if turn % 2 == 0:
-                    letter = input("Please write a vocal: ")
-                    if letter in vocal:
-                        check = True
-                # If the turn is even the player will have to write a consonant
-                else:
-                    letter = input("Please write a consonant: ")
-                    if letter not in vocal:
-                        check = True
+            if turn != 7:
+                while not check:
+                    # If the turn is odd the player will have to write a vocal
+                    if turn % 2 == 0:
+                        letter = input("Please write a vocal: ").upper()
+                        if letter in vocal:
+                            check = True
+                    # If the turn is even the player will have to write a consonant
+                    else:
+                        letter = input("Please write a consonant: ").upper()
+                        if letter not in vocal:
+                            check = True
+            else:
+                letter = input("Please write a letter: ").upper()
 
             # loop to check if the player failed or successful
             for i in range(0, len(word)):
@@ -131,9 +138,6 @@ def main(failures=0, turn=0, vocal="aeiou", letter=str):
 
             # print the hangman variable
             print(hangman[failures])
-
-            # print the variable bar as string
-            print(' '.join(map(str, bar)))
 
         except ValueError:
             print("Oops! Try it again...")

@@ -1,5 +1,5 @@
 ######################################
-#   Hangman in python version beta2  #
+#   Hangman in python version beta 3 #
 #     Made by Jose and Alex          #
 ######################################
 
@@ -111,8 +111,10 @@ def main(failures=0, turn=0, vocal="aeiou", letter=str):
             for i in range(0, len(word)):
                 if word[i] == letter:
                     # if true the letter will be replace the i of the bar
-                    fail = False
                     bar[i] = letter
+                    fail = False
+
+            # fails count
             if fail:
                 failures += 1
 

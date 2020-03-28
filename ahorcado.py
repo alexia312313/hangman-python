@@ -105,7 +105,7 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str):
             print(' '.join(map(str, bar)))
 
             # check if the turn is odd or even
-            if turn != 7:
+            if turn < 7:
                 while not check:
                     # If the turn is odd the player will have to write a vocal
                     if turn % 2 == 0:

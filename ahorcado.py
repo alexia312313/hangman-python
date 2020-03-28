@@ -1,7 +1,7 @@
 ##################################
 #       Hangman in python        #
 #     Made by Jose and Alex      #
-#        version: beta 6         #
+#        version: beta 7         #
 ##################################
 
 

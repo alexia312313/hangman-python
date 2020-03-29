@@ -1,7 +1,7 @@
 ##################################
 #       Hangman in python        #
 #     Made by Jose and Alex      #
-#        version: beta 7         #
+#        version: beta 8         #
 ##################################
 
 
@@ -11,12 +11,14 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
     import os
 
     check = False
-    # Input of key word
+    # Input of key word with a check
     while not check:
         word = list(input("Please write a word: ").upper())
         wordStr = ''.join(map(str, word))
         if wordStr.isalpha():
             check = True
+        else:
+            print("Only letters are allowed!!")
 
     # clear cmd, so that the player does not know the word to guess
     os.system("cls")
@@ -24,7 +26,11 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
     # Calculate the number of bars based on the numbers of letter of the word
     bar = list(len(word) * "_")
 
+    # variable inputLetters where all the letters inputted will go
     inputLetters = list()
+
+    # convert variable word from list to str, also capitalizing it
+    word_to_str = (''.join(map(str, word))).capitalize()
 
     # variable hangman that it will show the failures that the player has
     hangman = [
@@ -55,30 +61,46 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
                 while not check:
                     # If the turn is odd the player will have to write a vocal
                     if turn % 2 == 0:
-                        letter = input("Please write a vocal: ").upper()
+                        while not check:
+                            letter = input("Please write a vocal: ").upper()
+                            if letter.isalpha():
+                                check = True
+                            else:
+                                print("Only vowels are allowed!!")
+                        check = False
                         if letter[0] in vocal and letter[0] not in inputLetters:
                             check = True
-                        elif not letter.isalpha() or letter[0] not in vocal:
-                            print("Only vowels are allowed!!")
                         elif letter[0] in vocal and letter[0] in inputLetters:
                             print("You have already entered the letter previously")
+                        else:
+                            print("Only vowels are allowed!!")
                     # If the turn is even the player will have to write a consonant
                     else:
-                        letter = input("Please write a consonant: ").upper()
+                        while not check:
+                            letter = input("Please write a consonant: ").upper()
+                            if letter.isalpha():
+                                check = True
+                            else:
+                                print("Only consonants are allowed!!")
+                        check = False
                         if letter[0] not in vocal and letter[0] not in inputLetters and letter[0].isalpha():
                             check = True
-                        elif not letter.isalpha() or letter[0] in vocal:
-                            print("Only consonants are allowed!!")
                         elif letter[0] not in vocal and letter[0] in inputLetters:
                             print("You have already entered the letter previously")
+                        else:
+                            print("Only consonants are allowed!!")
                 inputLetters += letter[0]
             else:
                 while not check:
-                    letter = input("Please write a letter: ").upper()
+                    while not check:
+                        letter = input("Please write a letter: ").upper()
+                        if letter.isalpha():
+                            check = True
+                        else:
+                            print("Only letters are allowed!!")
+                    check = False
                     if letter[0] not in inputLetters and letter[0].isalpha():
                         check = True
-                    elif not letter.isalpha():
-                        print("Only letters are allowed!!")
                     elif letter[0] in inputLetters:
                         print("You have already entered the letter previously")
                 inputLetters += letter[0]
@@ -97,7 +119,7 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
             # win execution
             if bar == word:
                 os.system("cls")
-                print("The word is: " + (''.join(map(str, word))).capitalize())
+                print("The word is: " + word_to_str)
                 print("Congratulations, you Win!")
                 break
 
@@ -109,7 +131,7 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
     else:
         os.system("cls")
         print(hangman[failures])
-        print("The word was: " + (''.join(map(str, word))).capitalize())
+        print("The word was: " + word_to_str)
         print("GAME OVER")
 
 

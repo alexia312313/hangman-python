@@ -1,12 +1,12 @@
 ##################################
 #       Hangman in python        #
 #     Made by Jose and Alex      #
-#        version: beta 8         #
+#        version: beta 9         #
 ##################################
 
 
 # main function where the hangman game will be executed
-def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
+def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=str):
     # import os for the execution of the command cls in cmd
     import os
 
@@ -14,8 +14,9 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
     # Input of key word with a check
     while not check:
         word = list(input("Please write a word: ").upper())
-        wordStr = ''.join(map(str, word))
-        if wordStr.isalpha():
+        # convert variable word from list to str, also capitalizing it
+        word_to_str = (''.join(map(str, word))).capitalize()
+        if word_to_str.isalpha():
             check = True
         else:
             print("Only letters are allowed!!")
@@ -28,9 +29,6 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
 
     # variable inputLetters where all the letters inputted will go
     inputLetters = list()
-
-    # convert variable word from list to str, also capitalizing it
-    word_to_str = (''.join(map(str, word))).capitalize()
 
     # variable hangman that it will show the failures that the player has
     hangman = [
@@ -65,8 +63,6 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
                             letter = input("Please write a vocal: ").upper()
                             if letter.isalpha():
                                 check = True
-                            else:
-                                print("Only vowels are allowed!!")
                         check = False
                         if letter[0] in vocal and letter[0] not in inputLetters:
                             check = True
@@ -80,8 +76,6 @@ def main(failures=0, turn=0, vocal="AEIOU", letter=str, word=list):
                             letter = input("Please write a consonant: ").upper()
                             if letter.isalpha():
                                 check = True
-                            else:
-                                print("Only consonants are allowed!!")
                         check = False
                         if letter[0] not in vocal and letter[0] not in inputLetters and letter[0].isalpha():
                             check = True

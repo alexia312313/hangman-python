@@ -1,7 +1,7 @@
 ##################################
-#       Hangman in python        #
+#       Hangman in Python        #
 #     Made by Jose and Alex      #
-#        version: beta 9         #
+#        version: beta 10        #
 ##################################
 
 
@@ -14,8 +14,8 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
     # Input of key word with a check
     while not check:
         word = list(input("Please write a word: ").upper())
-        # convert variable word from list to str, also capitalizing it
-        word_to_str = (''.join(map(str, word))).capitalize()
+        # convert the variable word from list to str, also capitalizing it
+        word_to_str = (''.join(word)).capitalize()
         if word_to_str.isalpha():
             check = True
         else:
@@ -28,9 +28,9 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
     bar = list(len(word) * "_")
 
     # variable inputLetters where all the letters inputted will go
-    inputLetters = list()
+    input_letters = list()
 
-    # variable hangman that it will show the failures that the player has
+    # the variable hangman that it will show the failures that the player has
     hangman = [
         ' _____    \n |        \n |        \n |        \n |        \n_|_______\n',
         ' _____    \n |   |    \n |        \n |        \n |        \n_|_______\n',
@@ -42,7 +42,7 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
         ' _____    \n |   |    \n |   O    \n |  /|\   \n |  / \   \n_|_______\n'
     ]
 
-    # main loop where the player will lose or win
+    # the main loop where the player will lose or win
     while failures != len(hangman) - 1:
 
         # try, to avoid crashes
@@ -52,7 +52,7 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
             fail = True
 
             # print the variable bar as string
-            print(' '.join(map(str, bar)))
+            print(' '.join(bar))
 
             # check if the turn is odd or even
             if turn < 7:
@@ -64,9 +64,9 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                             if letter.isalpha():
                                 check = True
                         check = False
-                        if letter[0] in vocal and letter[0] not in inputLetters:
+                        if letter[0] in vocal and letter[0] not in input_letters:
                             check = True
-                        elif letter[0] in vocal and letter[0] in inputLetters:
+                        elif letter[0] in vocal and letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only vowels are allowed!!")
@@ -77,13 +77,13 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                             if letter.isalpha():
                                 check = True
                         check = False
-                        if letter[0] not in vocal and letter[0] not in inputLetters and letter[0].isalpha():
+                        if letter[0] not in vocal and letter[0] not in input_letters and letter[0].isalpha():
                             check = True
-                        elif letter[0] not in vocal and letter[0] in inputLetters:
+                        elif letter[0] not in vocal and letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only consonants are allowed!!")
-                inputLetters += letter[0]
+                input_letters += letter[0]
             else:
                 while not check:
                     while not check:
@@ -93,15 +93,15 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                         else:
                             print("Only letters are allowed!!")
                     check = False
-                    if letter[0] not in inputLetters and letter[0].isalpha():
+                    if letter[0] not in input_letters and letter[0].isalpha():
                         check = True
-                    elif letter[0] in inputLetters:
+                    elif letter[0] in input_letters:
                         print("You have already entered the letter previously")
-                inputLetters += letter[0]
+                input_letters += letter[0]
 
             # loop to check if the player failed or successful
             for i in range(0, len(word)):
-                # if true the letter will be replace the i position of the variable bar
+                # if true the letter will replace the "i" position of the variable bar
                 if word[i] == letter:
                     bar[i] = letter
                     fail = False

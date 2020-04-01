@@ -1,7 +1,7 @@
 ##################################
 #       Hangman in Python        #
 #     Made by Jose and Alex      #
-#        version: beta 10        #
+#          version: 11           #
 ##################################
 
 
@@ -66,7 +66,7 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                         check = False
                         if letter[0] in vocal and letter[0] not in input_letters:
                             check = True
-                        elif letter[0] in vocal and letter[0] in input_letters:
+                        elif letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only vowels are allowed!!")
@@ -77,9 +77,9 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                             if letter.isalpha():
                                 check = True
                         check = False
-                        if letter[0] not in vocal and letter[0] not in input_letters and letter[0].isalpha():
+                        if letter[0] not in vocal and letter[0] not in input_letters:
                             check = True
-                        elif letter[0] not in vocal and letter[0] in input_letters:
+                        elif letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only consonants are allowed!!")
@@ -93,9 +93,9 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                         else:
                             print("Only letters are allowed!!")
                     check = False
-                    if letter[0] not in input_letters and letter[0].isalpha():
+                    if letter[0] not in input_letters:
                         check = True
-                    elif letter[0] in input_letters:
+                    else:
                         print("You have already entered the letter previously")
                 input_letters += letter[0]
 

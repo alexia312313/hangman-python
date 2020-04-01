@@ -66,7 +66,7 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                         check = False
                         if letter[0] in vocal and letter[0] not in input_letters:
                             check = True
-                        elif letter[0] in input_letters:
+                        elif letter[0] in vocal and letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only vowels are allowed!!")
@@ -79,7 +79,7 @@ def main(failures=0, turn=0, vocal="AEIOU", word=list, letter=str, word_to_str=s
                         check = False
                         if letter[0] not in vocal and letter[0] not in input_letters:
                             check = True
-                        elif letter[0] in input_letters:
+                        elif letter[0] not in vocal and letter[0] in input_letters:
                             print("You have already entered the letter previously")
                         else:
                             print("Only consonants are allowed!!")
